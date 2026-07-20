@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Олеська Маникюр Липецк — стерильный маникюр, премиум-материалы и уютная атмосфера в центре города." />
+  <title>Олеська Маникюр Липецк</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Montserrat', 'system-ui', 'sans-serif'],
+            display: ['Playfair Display', 'Georgia', 'serif'],
+          },
+          colors: {
+            lavender: {
+              50: '#FAFAFE',
+              100: '#F3E8FF',
+              200: '#E9D5FF',
+              300: '#D8B4FE',
+              400: '#C084FC',
+              500: '#A855F7',
+              600: '#9333EA',
+              700: '#7E22CE',
+              800: '#6B21A8',
+              900: '#4C1D95',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-lavender-50 text-lavender-900 font-sans antialiased overflow-x-hidden">
+
+  <!-- Toast -->
+  <div id="toast" class="toast fixed top-24 right-4 left-4 sm:left-auto sm:max-w-md z-[100] translate-x-[120%] opacity-0 pointer-events-none transition-all duration-500">
+    <div class="glass-card rounded-2xl p-5 shadow-2xl border border-white/60">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-full bg-lavender-300/40 flex items-center justify-center shrink-0">
+          <i data-lucide="heart" class="w-5 h-5 text-lavender-800"></i>
+        </div>
+        <p id="toast-message" class="text-sm leading-relaxed text-lavender-900/90"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[90] bg-lavender-900/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+    <button id="lightbox-close" class="absolute top-6 right-6 w-11 h-11 rounded-full glass-card flex items-center justify-center hover:scale-105 transition-transform" aria-label="Закрыть">
+      <i data-lucide="x" class="w-5 h-5"></i>
+    </button>
+    <img id="lightbox-img" src="" alt="Работа мастера" class="max-w-full max-h-[85vh] rounded-3xl shadow-2xl object-contain" />
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="mt-4 glass-card rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2 group">
+          <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-lavender-300 to-lavender-500 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+            <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
+          </span>
+          <span class="font-display text-lg sm:text-xl font-semibold tracking-tight">
+            Олеська <span class="text-lavender-600">Маникюр</span>
+          </span>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-lavender-800/80">
+          <a href="#services" class="nav-link hover:text-lavender-700 transition-colors">Услуги</a>
+          <a href="#mood" class="nav-link hover:text-lavender-700 transition-colors">Изюминка</a>
+          <a href="#pricing" class="nav-link hover:text-lavender-700 transition-colors">Прайс</a>
+          <a href="#gallery" class="nav-link hover:text-lavender-700 transition-colors">Работы</a>
+          <a href="#faq" class="nav-link hover:text-lavender-700 transition-colors">FAQ</a>
+          <a href="#contacts" class="nav-link hover:text-lavender-700 transition-colors">Контакты</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a href="#booking" class="hidden sm:inline-flex btn-primary text-sm px-5 py-2.5">Записаться</a>
+          <button id="menu-toggle" class="lg:hidden w-10 h-10 rounded-xl glass-card flex items-center justify-center" aria-label="Меню">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="lg:hidden max-w-6xl mx-auto px-4 sm:px-6 mt-2 opacity-0 -translate-y-2 pointer-events-none transition-all duration-300">
+      <div class="glass-card rounded-2xl p-4 flex flex-col gap-1 text-sm font-medium">
+        <a href="#services" class="mobile-link px-4 py-3 rounded-xl hover:bg-white/40">Услуги</a>
+        <a href="#mood" class="mobile-link px-4 py-3 rounded-xl hover:bg-white/40">Изюминка</a>
+        <a href="#pricing" class="mobile-link px-4 py-3 rounded-xl hover:bg-white/40">Прайс</a>
+        <a href="#gallery" class="mobile-link px-4 py-3 rounded-xl hover:bg-white/40">Работы</a>
+        <a href="#faq" class="mobile-link px-4 py-3 rounded-xl hover:bg-white/40">FAQ</a>
+        <a href="#contacts" class="mobile-link px-4 py-3 rounded-xl hover:bg-white/40">Контакты</a>
+        <a href="#booking" class="mobile-link btn-primary text-center mt-2">Записаться</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+      <div class="hero-glow hero-glow-1"></div>
+      <div class="hero-glow hero-glow-2"></div>
+      <div class="hero-glow hero-glow-3"></div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="reveal">
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-xs sm:text-sm font-medium text-lavender-700 mb-6">
+              <i data-lucide="map-pin" class="w-4 h-4"></i>
+              Центр Липецка · по записи
+            </span>
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-[3.25rem] leading-tight font-semibold text-lavender-900 mb-6">
+              Твой идеальный маникюр в Липецке с&nbsp;любовью к&nbsp;каждой детали
+            </h1>
+            <p class="text-base sm:text-lg text-lavender-800/70 leading-relaxed mb-8 max-w-xl">
+              Стерильный инструмент, премиум-материалы, уютная атмосфера и чашечка вкусного кофе или чая
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="#booking" class="btn-primary text-center group">
+                <span>Записаться онлайн</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </a>
+              <a href="#gallery" class="btn-secondary text-center">Смотреть работы</a>
+            </div>
+          </div>
+
+          <div class="reveal delay-200 relative">
+            <div class="glass-card rounded-[2rem] p-6 sm:p-8 shadow-xl">
+              <div class="aspect-[4/5] rounded-3xl overflow-hidden relative">
+                <img
+                  src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1000&q=80"
+                  alt="Элегантный маникюр"
+                  class="w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-lavender-900/30 to-transparent"></div>
+              </div>
+              <div class="absolute -bottom-4 -left-4 glass-card rounded-2xl px-5 py-4 shadow-lg">
+                <p class="text-xs text-lavender-600 font-medium">Более 200 оттенков</p>
+                <p class="font-display text-xl font-semibold">Premium palette</p>
+              </div>
+              <div class="absolute -top-3 -right-3 w-16 h-16 rounded-2xl bg-gradient-to-br from-lavender-300 to-lavender-500 flex items-center justify-center shadow-lg animate-float">
+                <i data-lucide="gem" class="w-7 h-7 text-white"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section id="services" class="py-20 sm:py-28">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-14 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-lavender-500 mb-3">Почему Олеся</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold mb-4">Забота, которую чувствуешь</h2>
+          <p class="text-lavender-800/65">Каждая деталь продумана для вашего комфорта и безупречного результата</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <article class="reveal benefit-card glass-card rounded-3xl p-6 hover:-translate-y-1 transition-transform duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-lavender-200/60 flex items-center justify-center mb-5">
+              <i data-lucide="shield-check" class="w-6 h-6 text-lavender-700"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">100% стерильность</h3>
+            <p class="text-sm text-lavender-800/65 leading-relaxed">Крафт-пакеты вскрываются при клиенте — полная прозрачность и безопасность</p>
+          </article>
+
+          <article class="reveal delay-100 benefit-card glass-card rounded-3xl p-6 hover:-translate-y-1 transition-transform duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-lavender-200/60 flex items-center justify-center mb-5">
+              <i data-lucide="palette" class="w-6 h-6 text-lavender-700"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">200+ оттенков</h3>
+            <p class="text-sm text-lavender-800/65 leading-relaxed">Огромная палитра цветов — от нежного нюда до смелых акцентов</p>
+          </article>
+
+          <article class="reveal delay-200 benefit-card glass-card rounded-3xl p-6 hover:-translate-y-1 transition-transform duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-lavender-200/60 flex items-center justify-center mb-5">
+              <i data-lucide="badge-check" class="w-6 h-6 text-lavender-700"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Гарантия 7 дней</h3>
+            <p class="text-sm text-lavender-800/65 leading-relaxed">Уверенность в качестве покрытия — бесплатная коррекция при необходимости</p>
+          </article>
+
+          <article class="reveal delay-300 benefit-card glass-card rounded-3xl p-6 hover:-translate-y-1 transition-transform duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-lavender-200/60 flex items-center justify-center mb-5">
+              <i data-lucide="navigation" class="w-6 h-6 text-lavender-700"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Центр Липецка</h3>
+            <p class="text-sm text-lavender-800/65 leading-relaxed">Удобное расположение — легко добраться из любого района города</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mood Picker -->
+    <section id="mood" class="py-20 sm:py-28 relative overflow-hidden">
+      <div class="hero-glow hero-glow-2 opacity-50"></div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-lavender-500 mb-3">Изюминка</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold mb-4">Подбери своё настроение</h2>
+          <p class="text-lavender-800/65">Выбери форму ногтя и оттенок — Олеся подскажет идеальный образ</p>
+        </div>
+
+        <div class="glass-card rounded-[2rem] p-6 sm:p-10 reveal">
+          <div class="grid lg:grid-cols-2 gap-10 items-center">
+            <!-- Nail preview -->
+            <div class="flex flex-col items-center">
+              <div id="nail-preview" class="relative w-48 h-64 sm:w-56 sm:h-72 flex items-end justify-center mb-6">
+                <svg id="nail-svg" viewBox="0 0 120 200" class="w-full h-full drop-shadow-2xl transition-all duration-500">
+                  <defs>
+                    <linearGradient id="glitter-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style="stop-color:#E9D5FF"/>
+                      <stop offset="50%" style="stop-color:#F5C6D0"/>
+                      <stop offset="100%" style="stop-color:#C084FC"/>
+                    </linearGradient>
+                    <linearGradient id="french-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style="stop-color:#FFF5F7"/>
+                      <stop offset="70%" style="stop-color:#FFF5F7"/>
+                      <stop offset="70%" style="stop-color:#F9A8D4"/>
+                      <stop offset="100%" style="stop-color:#F472B6"/>
+                    </linearGradient>
+                  </defs>
+                  <path id="nail-shape" d="M35,180 Q30,120 35,60 Q40,20 60,10 Q80,20 85,60 Q90,120 85,180 Z" fill="#D8B4FE" stroke="#C084FC" stroke-width="1.5"/>
+                  <ellipse cx="60" cy="30" rx="18" ry="8" fill="white" opacity="0.25"/>
+                </svg>
+                <div id="nail-sparkle" class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-500">
+                  <span class="sparkle sparkle-1">✦</span>
+                  <span class="sparkle sparkle-2">✦</span>
+                  <span class="sparkle sparkle-3">✦</span>
+                </div>
+              </div>
+              <p id="mood-result" class="text-center font-display text-xl sm:text-2xl text-lavender-800 leading-snug max-w-sm transition-all duration-500">
+                Миндаль + Нежная Лаванда — идеальный выбор для утончённого и романтичного образа на эту неделю!
+              </p>
+            </div>
+
+            <!-- Controls -->
+            <div class="space-y-8">
+              <div>
+                <p class="text-sm font-semibold text-lavender-700 mb-4 flex items-center gap-2">
+                  <i data-lucide="scissors" class="w-4 h-4"></i>
+                  Форма ногтя
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <button type="button" data-shape="almond" class="shape-btn active glass-card rounded-2xl py-4 px-3 text-sm font-medium hover:bg-white/50 transition-all">
+                    Миндаль
+                  </button>
+                  <button type="button" data-shape="square" class="shape-btn glass-card rounded-2xl py-4 px-3 text-sm font-medium hover:bg-white/50 transition-all">
+                    Квадрат
+                  </button>
+                  <button type="button" data-shape="oval" class="shape-btn glass-card rounded-2xl py-4 px-3 text-sm font-medium hover:bg-white/50 transition-all">
+                    Овал
+                  </button>
+                  <button type="button" data-shape="stiletto" class="shape-btn glass-card rounded-2xl py-4 px-3 text-sm font-medium hover:bg-white/50 transition-all">
+                    Стилет
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-sm font-semibold text-lavender-700 mb-4 flex items-center gap-2">
+                  <i data-lucide="droplet" class="w-4 h-4"></i>
+                  Цвет настроения
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <button type="button" data-color="lavender" class="color-btn active rounded-2xl py-3 px-3 text-xs sm:text-sm font-medium border-2 border-transparent transition-all flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-[#D8B4FE] shrink-0"></span>
+                    Нежная Лаванда
+                  </button>
+                  <button type="button" data-color="nude" class="color-btn rounded-2xl py-3 px-3 text-xs sm:text-sm font-medium border-2 border-transparent transition-all flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-[#F5C6D0] shrink-0"></span>
+                    Розовый нюд
+                  </button>
+                  <button type="button" data-color="bordeaux" class="color-btn rounded-2xl py-3 px-3 text-xs sm:text-sm font-medium border-2 border-transparent transition-all flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-[#7F1D1D] shrink-0"></span>
+                    Страстный бордо
+                  </button>
+                  <button type="button" data-color="french" class="color-btn rounded-2xl py-3 px-3 text-xs sm:text-sm font-medium border-2 border-transparent transition-all flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-gradient-to-b from-white to-pink-300 border border-lavender-200 shrink-0"></span>
+                    Френч
+                  </button>
+                  <button type="button" data-color="glitter" class="color-btn rounded-2xl py-3 px-3 text-xs sm:text-sm font-medium border-2 border-transparent transition-all flex items-center gap-2 col-span-2 sm:col-span-1">
+                    <span class="w-5 h-5 rounded-full bg-gradient-to-br from-lavender-300 via-pink-200 to-lavender-400 shrink-0"></span>
+                    Сияющий глиттер
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 sm:py-28">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-lavender-500 mb-3">Прайс</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold mb-4">Услуги и стоимость</h2>
+          <p class="text-lavender-800/65">Прозрачные цены без скрытых доплат</p>
+        </div>
+
+        <div class="reveal">
+          <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button type="button" data-tab="manicure" class="tab-btn active px-5 py-2.5 rounded-full text-sm font-medium transition-all">Маникюр</button>
+            <button type="button" data-tab="extension" class="tab-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all">Наращивание</button>
+            <button type="button" data-tab="design" class="tab-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all">Дизайн</button>
+            <button type="button" data-tab="other" class="tab-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all">Другое</button>
+          </div>
+
+          <div id="tab-manicure" class="tab-panel grid sm:grid-cols-2 gap-5">
+            <article class="price-card glass-card rounded-3xl p-7">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 class="font-semibold text-lg leading-snug">Комплекс «Маникюр + Выравнивание + Покрытие гель-лак»</h3>
+                <span class="shrink-0 font-display text-2xl font-semibold text-lavender-700">от 1500 ₽</span>
+              </div>
+              <p class="text-sm text-lavender-800/60 leading-relaxed">Аппаратная или комбинированная обработка, выравнивание ногтевой пластины и стойкое покрытие</p>
+            </article>
+            <article class="price-card glass-card rounded-3xl p-7">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 class="font-semibold text-lg leading-snug">Маникюр без покрытия</h3>
+                <span class="shrink-0 font-display text-2xl font-semibold text-lavender-700">от 800 ₽</span>
+              </div>
+              <p class="text-sm text-lavender-800/60 leading-relaxed">Идеальная форма, аккуратная кутикула и ухоженные руки</p>
+            </article>
+          </div>
+
+          <div id="tab-extension" class="tab-panel hidden grid sm:grid-cols-2 gap-5">
+            <article class="price-card glass-card rounded-3xl p-7">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 class="font-semibold text-lg leading-snug">Наращивание ногтей</h3>
+                <span class="shrink-0 font-display text-2xl font-semibold text-lavender-700">от 2200 ₽</span>
+              </div>
+              <p class="text-sm text-lavender-800/60 leading-relaxed">Прочная база, идеальная архитектура и покрытие на ваш выбор</p>
+            </article>
+            <article class="price-card glass-card rounded-3xl p-7">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 class="font-semibold text-lg leading-snug">Коррекция наращивания</h3>
+                <span class="shrink-0 font-display text-2xl font-semibold text-lavender-700">от 1800 ₽</span>
+              </div>
+              <p class="text-sm text-lavender-800/60 leading-relaxed">Обновление формы и покрытия через 3–4 недели</p>
+            </article>
+          </div>
+
+          <div id="tab-design" class="tab-panel hidden grid sm:grid-cols-2 gap-5">
+            <article class="price-card glass-card rounded-3xl p-7">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 class="font-semibold text-lg leading-snug">Дизайн (френч, стемпинг, втирка, рисунки)</h3>
+                <span class="shrink-0 font-display text-2xl font-semibold text-lavender-700">от 50 ₽/ноготь</span>
+              </div>
+              <p class="text-sm text-lavender-800/60 leading-relaxed">Акцентный дизайн любой сложности — от минимализма до арт-объекта</p>
+            </article>
+            <article class="price-card glass-card rounded-3xl p-7">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 class="font-semibold text-lg leading-snug">Втирка / Chrome / Cat-eye</h3>
+                <span class="shrink-0 font-display text-2xl font-semibold text-lavender-700">от 100 ₽/ноготь</span>
+              </div>
+              <p class="text-sm text-lavender-800/60 leading-relaxed">Сияющие эффекты, которые ловят каждый луч света</p>
+            </article>
+          </div>
+
+          <div id="tab-other" class="tab-panel hidden grid sm:grid-cols-2 gap-5">
+            <article class="price-card glass-card rounded-3xl p-7 border-2 border-lavender-300/50">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 class="font-semibold text-lg leading-snug">Снятие работы другого мастера</h3>
+                <span class="shrink-0 font-display text-2xl font-semibold text-lavender-700">Бесплатно*</span>
+              </div>
+              <p class="text-sm text-lavender-800/60 leading-relaxed">*При последующем покрытии — бережное снятие без повреждения ногтей</p>
+            </article>
+            <article class="price-card glass-card rounded-3xl p-7">
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <h3 class="font-semibold text-lg leading-snug">Снятие покрытия</h3>
+                <span class="shrink-0 font-display text-2xl font-semibold text-lavender-700">300 ₽</span>
+              </div>
+              <p class="text-sm text-lavender-800/60 leading-relaxed">Безопасное снятие гель-лака или наращивания</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-20 sm:py-28 bg-lavender-100/40">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-lavender-500 mb-3">Портфолио</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold mb-4">Наши работы</h2>
+          <p class="text-lavender-800/65">Нажмите на фото, чтобы рассмотреть детали</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+          <button type="button" class="gallery-item reveal rounded-2xl overflow-hidden aspect-square group shadow-lg shadow-lavender-300/30" data-src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=1200&q=80">
+            <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?auto=format&fit=crop&w=800&q=80" alt="Маникюр — работа 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </button>
+          <button type="button" class="gallery-item reveal delay-100 rounded-2xl overflow-hidden aspect-square group shadow-lg shadow-lavender-300/30" data-src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=80">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Маникюр — работа 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </button>
+          <button type="button" class="gallery-item reveal delay-200 rounded-2xl overflow-hidden aspect-square group shadow-lg shadow-lavender-300/30" data-src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=1200&q=80">
+            <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80" alt="Маникюр — работа 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </button>
+          <button type="button" class="gallery-item reveal rounded-2xl overflow-hidden aspect-square group shadow-lg shadow-lavender-300/30" data-src="https://images.unsplash.com/photo-1599459183200-59c7687a0275?auto=format&fit=crop&w=1200&q=80">
+            <img src="https://images.unsplash.com/photo-1599459183200-59c7687a0275?auto=format&fit=crop&w=800&q=80" alt="Маникюр — работа 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </button>
+          <button type="button" class="gallery-item reveal delay-100 rounded-2xl overflow-hidden aspect-square group shadow-lg shadow-lavender-300/30" data-src="https://images.unsplash.com/photo-1607004468138-e7e23ea26947?auto=format&fit=crop&w=1200&q=80">
+            <img src="https://images.unsplash.com/photo-1607004468138-e7e23ea26947?auto=format&fit=crop&w=800&q=80" alt="Маникюр — работа 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </button>
+          <button type="button" class="gallery-item reveal delay-200 rounded-2xl overflow-hidden aspect-square group shadow-lg shadow-lavender-300/30" data-src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=1200&q=80">
+            <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=800&q=80" alt="Маникюр — работа 6" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking -->
+    <section id="booking" class="py-20 sm:py-28 relative overflow-hidden">
+      <div class="hero-glow hero-glow-1 opacity-40"></div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="reveal">
+            <p class="text-sm font-semibold uppercase tracking-widest text-lavender-500 mb-3">Запись</p>
+            <h2 class="font-display text-3xl sm:text-4xl font-semibold mb-4">Записаться на преображение</h2>
+            <p class="text-lavender-800/65 leading-relaxed mb-8">
+              Оставьте заявку — Олеся свяжется с вами для подтверждения удобного времени. Кофе, чай и хорошее настроение уже ждут!
+            </p>
+            <ul class="space-y-4">
+              <li class="flex items-center gap-3 text-sm text-lavender-800/75">
+                <span class="w-8 h-8 rounded-xl bg-lavender-200/50 flex items-center justify-center"><i data-lucide="clock" class="w-4 h-4"></i></span>
+                Ежедневно 10:00 – 21:00 по записи
+              </li>
+              <li class="flex items-center gap-3 text-sm text-lavender-800/75">
+                <span class="w-8 h-8 rounded-xl bg-lavender-200/50 flex items-center justify-center"><i data-lucide="map-pin" class="w-4 h-4"></i></span>
+                г. Липецк, центр (район ул. Ленина)
+              </li>
+              <li class="flex items-center gap-3 text-sm text-lavender-800/75">
+                <span class="w-8 h-8 rounded-xl bg-lavender-200/50 flex items-center justify-center"><i data-lucide="send" class="w-4 h-4"></i></span>
+                <a href="https://t.me/n0ranara" target="_blank" rel="noopener noreferrer" class="hover:text-lavender-600 transition-colors">Telegram: @n0ranara</a>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-lavender-800/75">
+                <span class="w-8 h-8 rounded-xl bg-lavender-200/50 flex items-center justify-center">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm3.08 14.27h-1.46c-.55 0-.72-.44-1.71-1.42-.86-.84-1.24-.95-1.46-.95-.3 0-.38.09-.38.5v1.3c0 .36-.12.58-1.08.58-1.6 0-3.38-.97-4.63-2.77-1.26-1.82-1.61-3.19-1.61-3.35 0-.15.09-.29.5-.29h1.46c.38 0 .52.17.67.56.73 2.12 1.95 3.98 2.45 3.98.19 0 .27-.09.27-.58v-2.26c-.06-.98-.57-1.06-.57-1.42 0-.17.14-.34.36-.34h2.3c.32 0 .44.17.44.54v3.05c0 .32.14.44.23.44.19 0 .34-.12.68-.46 1.05-1.17 1.8-2.98 1.8-2.98.1-.21.26-.29.52-.29h1.46c.43 0 .52.22.43.54-.16.75-1.73 3.22-1.73 3.22-.14.23-.19.33 0 .59.14.19.6.58.91.93.56.63 1 1.16 1.12 1.52.12.38-.08.58-.47.58z"/></svg>
+                </span>
+                <a href="https://vk.ru/nora1148" target="_blank" rel="noopener noreferrer" class="hover:text-lavender-600 transition-colors">Олеся ВКонтакте</a>
+              </li>
+            </ul>
+          </div>
+
+          <form id="booking-form" class="reveal delay-200 glass-card rounded-[2rem] p-6 sm:p-8 space-y-5">
+            <div>
+              <label for="name" class="block text-sm font-medium text-lavender-800 mb-2">Имя</label>
+              <input type="text" id="name" name="name" required placeholder="Ваше имя" class="form-input" />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-lavender-800 mb-2">Телефон</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 000-00-00" class="form-input" />
+            </div>
+            <div>
+              <label for="service" class="block text-sm font-medium text-lavender-800 mb-2">Услуга</label>
+              <select id="service" name="service" required class="form-input">
+                <option value="" disabled selected>Выберите услугу</option>
+                <option value="Маникюр с покрытием">Маникюр с покрытием</option>
+                <option value="Наращивание">Наращивание</option>
+                <option value="Дизайн">Дизайн</option>
+                <option value="Другое">Другое</option>
+              </select>
+            </div>
+            <div>
+              <label for="date" class="block text-sm font-medium text-lavender-800 mb-2">Желаемая дата/время</label>
+              <input type="text" id="date" name="date" placeholder="Например: в пятницу после 17:00" class="form-input" />
+            </div>
+            <button type="submit" id="submit-btn" class="btn-primary w-full justify-center">
+              <span id="submit-text">Отправить заявку</span>
+              <span id="submit-loader" class="hidden">
+                <svg class="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-20 sm:py-28 bg-lavender-100/30">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-12 reveal">
+          <p class="text-sm font-semibold uppercase tracking-widest text-lavender-500 mb-3">FAQ</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold mb-4">Часто задаваемые вопросы</h2>
+          <p class="text-lavender-800/65">Всё, что вы хотели узнать о процедуре</p>
+        </div>
+
+        <div class="space-y-3 reveal">
+          <div class="accordion-item glass-card rounded-2xl overflow-hidden">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-lavender-900 hover:bg-white/30 transition-colors">
+              <span>Как проходит дезинфекция и стерилизация инструментов?</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 shrink-0 text-lavender-600 transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-panel">
+              <div class="px-6 pb-5 text-sm text-lavender-800/70 leading-relaxed">
+                Стерильность и ваше здоровье — мой абсолютный приоритет! Все металлические инструменты проходят 3 этапа обработки: дезинфекцию в спецрастворе, предстерилизационную очистку и жаровую стерилизацию в сухожаровом шкафу ГП-10 по нормам СанПиН. Крафт-пакет с индикатором я вскрываю строго при вас перед началом сеанса, а пилки и бафы использую только одноразовые.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item glass-card rounded-2xl overflow-hidden">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-lavender-900 hover:bg-white/30 transition-colors">
+              <span>Сколько времени занимает маникюр с покрытием?</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 shrink-0 text-lavender-600 transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-panel">
+              <div class="px-6 pb-5 text-sm text-lavender-800/70 leading-relaxed">
+                В среднем процедура длится от 1,5 до 2 часов в зависимости от сложности снятия старого покрытия, дизайна и состояния ноготков. За это время вы сможете расслабиться, выпить чашечку ароматного чая или кофе и посмотреть любимый сериал!
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item glass-card rounded-2xl overflow-hidden">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-lavender-900 hover:bg-white/30 transition-colors">
+              <span>Сколько держится покрытие и есть ли гарантия?</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 shrink-0 text-lavender-600 transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-panel">
+              <div class="px-6 pb-5 text-sm text-lavender-800/70 leading-relaxed">
+                Я использую только премиальные базовые покрытия и гели, поэтому маникюр уверенно держится 3–4 недели без сколов и отслоек. На работу предоставляется гарантия 7 дней — если в этот период что-то случится, я бесплатно всё исправлю.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item glass-card rounded-2xl overflow-hidden">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-lavender-900 hover:bg-white/30 transition-colors">
+              <span>Можно ли сделать наращивание или ремонт сломанного ногтя?</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 shrink-0 text-lavender-600 transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-panel">
+              <div class="px-6 pb-5 text-sm text-lavender-800/70 leading-relaxed">
+                Конечно! Я выполняю как полное наращивание ногтей любой длины и формы, так и незаметный ремонт или донаращивание 1–2 сломанных ноготков, чтобы общая длина осталась идеальной.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item glass-card rounded-2xl overflow-hidden">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-lavender-900 hover:bg-white/30 transition-colors">
+              <span>Как записаться на приём и где вы находитесь?</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 shrink-0 text-lavender-600 transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-panel">
+              <div class="px-6 pb-5 text-sm text-lavender-800/70 leading-relaxed">
+                Мы находимся в удобной локации в Липецке. Вы можете оставить заявку прямо здесь на сайте через форму онлайн-записи, либо написать мне напрямую в Telegram (<a href="https://t.me/n0ranara" target="_blank" rel="noopener noreferrer" class="text-lavender-700 underline hover:text-lavender-500">@n0ranara</a>) или <a href="https://vk.ru/nora1148" target="_blank" rel="noopener noreferrer" class="text-lavender-700 underline hover:text-lavender-500">ВКонтакте</a>. Я подберу для вас самое удобное окошко!
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item glass-card rounded-2xl overflow-hidden">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-lavender-900 hover:bg-white/30 transition-colors">
+              <span>Что делать, если мне нужно отменить или перенести запись?</span>
+              <i data-lucide="chevron-down" class="accordion-icon w-5 h-5 shrink-0 text-lavender-600 transition-transform duration-300"></i>
+            </button>
+            <div class="accordion-panel">
+              <div class="px-6 pb-5 text-sm text-lavender-800/70 leading-relaxed">
+                В жизни бывает всякое, я всё понимаю! Пожалуйста, просто предупредите меня сообщением в Telegram или ВКонтакте хотя бы за сутки до визита, и мы без проблем перенесём запись на другой удобный день.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="contacts" class="py-16 border-t border-lavender-200/60">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-12">
+        <div>
+          <a href="#" class="flex items-center gap-2 mb-4">
+            <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-lavender-300 to-lavender-500 flex items-center justify-center">
+              <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
+            </span>
+            <span class="font-display text-xl font-semibold">Олеська Маникюр</span>
+          </a>
+          <p class="text-sm text-lavender-800/60 leading-relaxed">Маникюр с душой в самом сердце Липецка. Стерильность, стиль и уют — всё в одном месте.</p>
+        </div>
+
+        <div>
+          <h3 class="font-semibold mb-4">Контакты</h3>
+          <ul class="space-y-3 text-sm text-lavender-800/70">
+            <li class="flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4 text-lavender-500"></i>
+              г. Липецк, центр (район ул. Ленина)
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="clock" class="w-4 h-4 text-lavender-500"></i>
+              Ежедневно 10:00 – 21:00 по записи
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-semibold mb-4">Связаться с нами</h3>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <a href="https://t.me/n0ranara" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-lavender-800/70 hover:text-lavender-600 transition-colors">
+                <i data-lucide="send" class="w-4 h-4 text-lavender-500"></i>
+                Telegram: @n0ranara
+              </a>
+            </li>
+            <li>
+              <a href="https://vk.ru/nora1148" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-lavender-800/70 hover:text-lavender-600 transition-colors">
+                <svg class="w-4 h-4 text-lavender-500" viewBox="0 0 24 24" fill="currentColor"><path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm3.08 14.27h-1.46c-.55 0-.72-.44-1.71-1.42-.86-.84-1.24-.95-1.46-.95-.3 0-.38.09-.38.5v1.3c0 .36-.12.58-1.08.58-1.6 0-3.38-.97-4.63-2.77-1.26-1.82-1.61-3.19-1.61-3.35 0-.15.09-.29.5-.29h1.46c.38 0 .52.17.67.56.73 2.12 1.95 3.98 2.45 3.98.19 0 .27-.09.27-.58v-2.26c-.06-.98-.57-1.06-.57-1.42 0-.17.14-.34.36-.34h2.3c.32 0 .44.17.44.54v3.05c0 .32.14.44.23.44.19 0 .34-.12.68-.46 1.05-1.17 1.8-2.98 1.8-2.98.1-.21.26-.29.52-.29h1.46c.43 0 .52.22.43.54-.16.75-1.73 3.22-1.73 3.22-.14.23-.19.33 0 .59.14.19.6.58.91.93.56.63 1 1.16 1.12 1.52.12.38-.08.58-.47.58z"/></svg>
+                Олеся ВКонтакте
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-lavender-200/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-lavender-800/50">
+        <p>© 2026 Олеська Маникюр Липецк. Все права защищены.</p>
+        <p>Сделано с 💜 для красивых ручек</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Telegram Button -->
+  <a
+    href="https://t.me/n0ranara"
+    target="_blank"
+    rel="noopener noreferrer"
+    id="telegram-float"
+    class="telegram-float fixed z-50 bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg"
+    aria-label="Написать Олесе в Telegram"
+    data-tooltip="Написать Олесе в Telegram 💜"
+  >
+    <i data-lucide="send" class="w-6 h-6"></i>
+  </a>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
