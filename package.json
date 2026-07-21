@@ -1,0 +1,15 @@
+{
+  "name": "olesya-manicure",
+  "version": "1.0.0",
+  "description": "Олеська Маникюр Липецк — стерильный маникюр, премиум-материалы и уютная атмосфера в центре города.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo 'No build required for static site'",
+    "lint": "echo 'No linting required'",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
