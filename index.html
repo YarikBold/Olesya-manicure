@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru" class="scroll-smooth overflow-x-hidden">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,7 +43,7 @@
 <body class="bg-lavender-50 text-lavender-900 font-sans antialiased overflow-x-hidden">
 
   <!-- Toast -->
-  <div id="toast" class="toast fixed top-24 right-4 left-4 sm:left-auto sm:max-w-md z-[100] translate-x-[120%] opacity-0 pointer-events-none transition-all duration-500">
+  <div id="toast" class="toast fixed top-24 right-4 left-4 sm:left-auto sm:max-w-md z-[100] opacity-0 pointer-events-none transition-all duration-500">
     <div class="glass-card rounded-2xl p-5 shadow-2xl border border-white/60">
       <div class="flex items-start gap-3">
         <div class="w-10 h-10 rounded-full bg-lavender-300/40 flex items-center justify-center shrink-0">
@@ -93,7 +93,7 @@
       </div>
     </div>
 
-    <div id="mobile-menu" class="lg:hidden max-w-6xl mx-auto px-4 sm:px-6 mt-2 opacity-0 -translate-y-2 pointer-events-none transition-all duration-300">
+    <div id="mobile-menu" class="lg:hidden absolute top-full left-0 right-0 max-w-6xl mx-auto px-4 sm:px-6 mt-2 opacity-0 -translate-y-2 pointer-events-none transition-all duration-300">
       <div class="glass-card rounded-2xl p-4 flex flex-col gap-1 text-sm font-medium">
         <a href="#services" class="mobile-link px-4 py-3 rounded-xl hover:bg-white/40">Услуги</a>
         <a href="#mood" class="mobile-link px-4 py-3 rounded-xl hover:bg-white/40">Изюминка</a>
@@ -108,7 +108,7 @@
 
   <main>
     <!-- Hero -->
-    <section class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+    <section class="relative min-h-[100dvh] flex items-center pt-28 pb-20 overflow-hidden">
       <div class="hero-glow hero-glow-1 pointer-events-none"></div>
       <div class="hero-glow hero-glow-2 pointer-events-none"></div>
       <div class="hero-glow hero-glow-3 pointer-events-none"></div>
