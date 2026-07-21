@@ -238,8 +238,13 @@
 }
 
 /* Toast */
-.toast.show {
-  transform: translateX(0);
+#toast {
+  visibility: hidden;
+  transform: translateY(-20px) scale(0.95);
+}
+#toast.show {
+  visibility: visible;
+  transform: translateY(0) scale(1);
   opacity: 1;
   pointer-events: auto;
 }
@@ -384,14 +389,13 @@
 
 @media (max-width: 640px) {
   .telegram-float::after {
-    right: auto;
-    left: 50%;
+    right: 0;
+    left: auto;
     top: auto;
-    bottom: calc(100% + 10px);
-    transform: translateX(-50%) translateY(8px);
+    bottom: calc(100% + 12px);
+    transform: translateY(8px);
   }
-
   .telegram-float:hover::after {
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
