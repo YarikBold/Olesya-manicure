@@ -128,14 +128,17 @@
 /* Form inputs */
 .form-input {
   width: 100%;
-  padding: 0.875rem 1.125rem;
+  height: 3rem;
+  padding: 0.75rem 1.125rem;
   border-radius: 1rem;
   border: 1px solid rgba(216, 180, 254, 0.5);
   background: rgba(255, 255, 255, 0.7);
   color: #4c1d95;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   transition: all 0.25s ease;
   outline: none;
+  position: relative;
+  z-index: 20;
 }
 
 .form-input::placeholder {
@@ -300,17 +303,16 @@
 
 /* FAQ Accordion */
 .accordion-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.accordion-panel > div {
+  max-height: 0;
   overflow: hidden;
+  opacity: 0;
+  transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
 }
 
 .accordion-item.open .accordion-panel {
-  grid-template-rows: 1fr;
+  max-height: 500px;
+  opacity: 1;
+  transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
 }
 
 .accordion-item.open .accordion-icon {
@@ -323,7 +325,7 @@
 
 /* Floating Telegram button */
 .telegram-float {
-  position: relative;
+  position: fixed !important;
   background: linear-gradient(135deg, #9333ea 0%, #6b21a8 100%);
   animation: telegram-pulse 2.5s ease-in-out infinite;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
